@@ -1,0 +1,22 @@
+services:
+  mongo-db:
+    container_name: mongo-container
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - film-net
+    environment:
+      - MONGO_INITDB_DATABASE=mflix
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+volumes:
+  mongo-data:
+
+networks:
+  film-net:
+    name: film-net
+    driver: bridge
