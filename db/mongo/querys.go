@@ -5,7 +5,6 @@ import (
 	"film-web-service/model"
 	"fmt"
 	"log"
-	"strconv"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -103,17 +102,18 @@ func (mongo *Mongo) DeleteFilmId(objectId string) ([]model.Film, error) {
 	return data, nil
 }
 
-func (mongo *Mongo) PostMessages(count string) ([]model.Film, error) {
-	limit, err := strconv.ParseInt(count, 10, 64)
+func (mongo *Mongo) FindFilms(count int64) ([]model.Film, error) {
 	var films []model.Film
 
+	cur, err := mongo.Client.Database("mflix").Collection("movies").Find(context.Background(), bson.M{}, options.Find().SetLimit(count))
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-
-	cur, err := mongo.Client.Database("mflix").Collection("messages").Find(context.Background(), bson.M{}, options.Find().SetLimit(limit))
 	for cur.Next(context.Background()) {
-		cur.Decode(&films)
+		err := cur.All(context.Background(), &films)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return films, nil

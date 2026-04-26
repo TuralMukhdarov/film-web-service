@@ -13,6 +13,7 @@ func Router() {
 	r.POST("/film", api.PostFilm)
 	r.PUT("/films/:id", api.PutFilmId)
 	r.DELETE("films/:id", api.DeleteFilmId)
+	r.POST("/send-messages", api.SendMessages)
 	err := r.Run("localhost:8080")
 	if err != nil {
 		log.Fatal(err)
