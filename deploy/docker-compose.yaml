@@ -7,7 +7,7 @@ services:
     volumes:
       - mongo-data:/data/db
     networks:
-      - film-net
+      - mongo-net
     environment:
       - MONGO_INITDB_DATABASE=mflix
       - MONGO_INITDB_ROOT_USERNAME=admin
@@ -15,8 +15,9 @@ services:
 
 volumes:
   mongo-data:
+    name: mongo-data
 
 networks:
-  film-net:
-    name: film-net
+  mongo-net:
+    name: mongo-net
     driver: bridge
