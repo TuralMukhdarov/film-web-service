@@ -10,7 +10,7 @@ Film-web-service - это простой REST API сервис для тести
 docker-compose up -d
 ```
 
-Импортировать JSON файлы в БД Mflix, предворительно скопировав содержиое data
+Импортировать JSON файлы в БД Mflix, предворительно скопировав содержиое data в mongo-container
 ```
 mongoimport --uri=mongodb://admin:admin@localhost:27017 --db mflix --collection users --authenticationDatabase=admin --file users.json
 mongoimport --uri=mongodb://admin:admin@localhost:27017 --db mflix --collection movies --authenticationDatabase=admin --file movies.json
